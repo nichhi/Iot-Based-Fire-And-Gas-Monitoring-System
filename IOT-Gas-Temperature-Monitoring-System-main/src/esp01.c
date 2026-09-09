@@ -59,7 +59,7 @@ void esp01_connectAP()
     delay_ms(1500);
 
     /* ----- CONNECT TO WIFI ----- */
-    UART0_Str("AT+CWJAP=\"A\",\"12345678\"\r\n"); // SSID & Password
+    UART0_Str("AT+CWJAP=\"Nishwanth Pedimalla@insta\",\"12345678\"\r\n"); // SSID & Password
     i=0; memset(buff,'\0',350);
     while(i<4);
     delay_ms(2500);
@@ -90,7 +90,7 @@ void esp01_sendToThingspeak(int val)
         UART0_Str("AT+CIPSEND=50\r\n");
         delay_ms(500);
 
-        UART0_Str("GET /update?api_key=WZPLGD53K501HBDA&field1=");
+        UART0_Str("GET /update?api_key=JAG5YV9265FM767F&field1=");
         UART0_Int(val);           // Send temperature
         UART0_Str("\r\n\r\n");
 
@@ -123,7 +123,7 @@ void esp01_sendGas(char val)
         UART0_Str("AT+CIPSEND=49\r\n");
         delay_ms(1000);
 
-        UART0_Str("GET /update?api_key=WZPLGD53K501HBDA&field2=");
+        UART0_Str("GET /update?api_key=JAG5YV9265FM767F&field2=");
         UART0_Tx(val);            // Send gas flag
         UART0_Str("\r\n\r\n");
 
@@ -156,7 +156,7 @@ void esp01_sendAlert(char val)
         UART0_Str("AT+CIPSEND=49\r\n");
         delay_ms(1000);
 
-        UART0_Str("GET /update?api_key=WZPLGD53K501HBDA&field3=");
+        UART0_Str("GET /update?api_key=JAG5YV9265FM767F&field3=");
         UART0_Tx(val);
         UART0_Str("\r\n\r\n");
 
@@ -189,7 +189,7 @@ void esp01_sendSetpoint(int val)
         UART0_Str("AT+CIPSEND=50\r\n");
         delay_ms(1000);
 
-        UART0_Str("GET /update?api_key=TUSF1RM72UGUU100&field1=");
+        UART0_Str("GET /update?api_key=LB8OIQDKBR8K2DKQ&field1=");
         UART0_Int(val);
         UART0_Str("\r\n\r\n");
 
@@ -223,7 +223,7 @@ int esp01_readSetpoint()
         UART0_Str("AT+CIPSEND=72\r\n");
         delay_ms(500);
 
-        UART0_Str("GET /channels/3282092/fields/1.json?api_key=VPB8LF3710OFI7HY&results=1\r\n");
+        UART0_Str("GET /channels/3282092/fields/1.json?api_key=KT3VKRFFXYHM92RG&results=1\r\n");
 
         delay_ms(10000);
 
