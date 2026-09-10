@@ -45,7 +45,65 @@ The system also allows users to **set and update a temperature threshold (setpoi
 * ⚡ Interrupt-based user input
 
 ---
+## Block Daigram
+                 ┌──────────────────────┐
+                 │        RTC           │
+                 │  Real-Time Clock     │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+┌─────────────────┐   ┌──────────┐   ┌─────────────────────┐
+│      LM35       │   │          │   │                     │
+│ Temperature     ├──►│   ADC    ├──►│                     │
+│    Sensor       │   │          │   │                     │
+└─────────────────┘   └──────────┘   │                     │
+                                     │                     │
+┌─────────────────┐                  │                     │
+│   Gas Sensor    ├─────────────────►│      LPC2148        │
+│ (Digital Output)│                  │   Microcontroller   │
+└─────────────────┘                  │                     │
+                                     │                     │
+┌─────────────────┐                  │                     │
+│   4×4 Keypad    ├─────────────────►│                     │
+│   (User Input)  │    Interrupt     │                     │
+└─────────────────┘                  │                     │
+                                     └───────┬───────┬─────┘
+                                             │       │
+                         ┌───────────────────┘       └──────────────────┐
+                         ▼                                              ▼
+                 ┌────────────────┐                              ┌──────────────┐
+                 │   16×2 LCD     │                              │    Buzzer    │
+                 │    Display     │                              │    Alert     │
+                 └────────────────┘                              └──────────────┘
 
+                                             │
+                                             ▼
+                                    ┌─────────────────┐
+                                    │ ESP8266 (ESP-01)│
+                                    │   Wi-Fi Module  │
+                                    └────────┬────────┘
+                                             │
+                                         Wi-Fi / HTTP
+                                             │
+                                             ▼
+                                    ┌─────────────────┐
+                                    │   ThingSpeak    │
+                                    │      Cloud      │
+                                    └─────────────────┘
+
+
+                     ┌─────────────────────────────┐
+                     │     External EEPROM        │
+                     │          (SPI)              │
+                     │   Stores Temperature       │
+                     │        Setpoint            │
+                     └─────────────▲───────────────┘
+                                   │
+                                   │ SPI
+                                   │
+                              ┌────┴─────┐
+                              │ LPC2148  │
+                              └──────────┘
 ## 🧠 Working Principle
 
 1. **Temperature Reading**
